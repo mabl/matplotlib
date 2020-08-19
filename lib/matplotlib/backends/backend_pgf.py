@@ -461,7 +461,8 @@ class RendererPgf(RendererBase):
         writeln(self.fh, r"}")
 
         # draw marker for each vertex
-        for point, code in path.iter_segments(trans, simplify=False):
+        clip = (0, 0, *self.get_canvas_width_height())
+        for point, code in path.iter_segments(trans, clip=clip, simplify=False):
             x, y = point[0] * f, point[1] * f
             writeln(self.fh, r"\begin{pgfscope}")
             writeln(self.fh, r"\pgfsys@transformshift{%fin}{%fin}" % (x, y))
